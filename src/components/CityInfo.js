@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import '../App.css';
+import Map from './Map'
 
+import '../App.css';
 
 function CityInfo() {
     const [infoURL, setInfoURL] = useState('')
     const [cityInfo, setCityInfo] = useState('')
-    console.log(cityInfo)
+    const [location, setLocation] = useState('')
+
+    useEffect(() => {
+        setLocation({ lat: cityInfo.latitude, lng: cityInfo.longitude })
+    }, [cityInfo])
+
 
     //fetch current visitor's location & IP address
     const ip_url = "https://geolocation-db.com/json/"
@@ -33,26 +39,28 @@ function CityInfo() {
                 throw response;
             }).then(data => setCityInfo(data)
             )
-    }, [])
-
+    }, [infoURL])
 
     return (
         <>
-        <header>
-            <div className="headerbox">
-                <h1 className='cityname'>
-                    {cityInfo.city}
-                </h1>
-            </div>
-            <div className="headerbox">
-                <p>({cityInfo.latitude},{cityInfo.longitude})</p>
-            </div>
-            <div className="headerbox">
-                <h3>
+            <header style={{
+                backgroundImage: `url("https://via.placeholder.com/500")`
+            }}>
+                <div className="headerbox">
+                    <h1 className='cityname'>
+                        {cityInfo.city}
+                    </h1>
+                </div>
+                <div className="headerbox">
+                    <p>({cityInfo.latitude},{cityInfo.longitude})</p>
+                </div>
+                <div className="headerbox">
+                    <h3>
                         {cityInfo.countryName}  {cityInfo.countryFlagEmoj}
-                </h3>
-            </div>
-        </header>
+                    </h3>
+                </div>
+            </header>
+            <Map center={location} cityInfo={cityInfo} zoom={12} />
         </>
     )
 }

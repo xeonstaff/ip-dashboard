@@ -21,5 +21,12 @@
 
 header {
   height:100%;
-  margin-top: 5em;
 }
+
+.infooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+}
+

@@ -7,8 +7,6 @@
 Idea original! 
 
 ## Tools
-1. Material UI for icons
-2. Redux for state
 
 ## APIs
 1. user IP address: https://geolocation-db.com/
