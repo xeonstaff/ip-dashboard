@@ -8,6 +8,11 @@ function CityInfo(props) {
     const [cityInfo, setCityInfo] = useState('')
     const [center, setCenter] = useState('')
 
+    //pass location to App.js for use in other components
+    useEffect(()=>{
+        props.setLocation(center)
+    },[center])
+
     //fetch current visitor's location & IP address
     const ip_url = "https://geolocation-db.com/json/"
     const api_key = process.env.REACT_APP_GEOLOC
