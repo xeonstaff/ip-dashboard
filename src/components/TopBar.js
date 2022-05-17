@@ -19,7 +19,7 @@ export default function SearchAppBar(props) {
                     >
                         IP Dashboard
                     </Typography>
-                    <SearchBox setSearch={props.setSearch} />
+                    <SearchBox setIPSearch={props.setIPSearch} />
                 </Toolbar>
             </AppBar>
         </Box>

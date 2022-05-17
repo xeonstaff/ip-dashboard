@@ -51,7 +51,7 @@ export default function SearchBox(props) {
 
     const handleChange = (e) => {
         setTimeout(() => {
-            props.setSearch(e);
+            props.setIPSearch(e);
         });
     }
 

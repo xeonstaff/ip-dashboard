@@ -3,31 +3,30 @@ import Map from './Map'
 
 import '../App.css';
 
-function CityInfo() {
+function CityInfo(props) {
     const [infoURL, setInfoURL] = useState('')
     const [cityInfo, setCityInfo] = useState('')
-    const [location, setLocation] = useState('')
-
-    useEffect(() => {
-        setLocation({ lat: cityInfo.latitude, lng: cityInfo.longitude })
-    }, [cityInfo])
-
+    const [center, setCenter] = useState('')
 
     //fetch current visitor's location & IP address
     const ip_url = "https://geolocation-db.com/json/"
     const api_key = process.env.REACT_APP_GEOLOC
 
     useEffect(() => {
-        fetch(ip_url)
-            .then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-                console.log(response);
-            }).then(data => setInfoURL(
-                `http://apiip.net/api/check?ip=${data.IPv4}&accessKey=${api_key}`
-            ))
-    }, [])
+        props.ipsearch ?
+            setInfoURL(
+                `http://apiip.net/api/check?ip=${props.ipsearch}&accessKey=${api_key}`) :
+            fetch(ip_url)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    console.log(response);
+                }).then(data => setInfoURL(
+                    `http://apiip.net/api/check?ip=${data.IPv4}&accessKey=${api_key}`
+                ))
+    }, [props.ipsearch])
+
 
     //fetch other information based on IP
     useEffect(() => {
@@ -40,6 +39,11 @@ function CityInfo() {
             }).then(data => setCityInfo(data)
             )
     }, [infoURL])
+
+    //set map center lat/long for map
+    useEffect(() => {
+        setCenter({ lat: cityInfo.latitude, lng: cityInfo.longitude })
+    }, [cityInfo, props.ipsearch])
 
     return (
         <>
@@ -60,7 +64,7 @@ function CityInfo() {
                     </h3>
                 </div>
             </header>
-            <Map center={location} cityInfo={cityInfo} zoom={12} />
+            <Map center={center} cityInfo={cityInfo} zoom={12} searchip={props.ipsearch} />
         </>
     )
 }

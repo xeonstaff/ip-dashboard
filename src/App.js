@@ -8,12 +8,12 @@ import Footer from './components/InfoFooter'
 
 
 function App() {
-  const [search, setSearch] = useState()
+  const [ipsearch, setIPSearch] = useState()
 
   return (
     <>
-      <TopBar setSearch={setSearch} />
-      <CityInfo search={search} />
+      <TopBar setIPSearch={setIPSearch} />
+      <CityInfo ipsearch={ipsearch} />
       <div className="footer">
         <Footer />
       </div>
